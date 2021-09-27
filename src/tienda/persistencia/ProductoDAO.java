@@ -100,7 +100,7 @@ public final class ProductoDAO extends DAO {
 		try {
 			// Hacemos la consulta SQL
 			String sql = "SELECT * FROM producto"
-					+ "WHERE nombre = '" + nombre + "';";
+					+ "WHERE nombre LIKE = '%" + nombre + "%';";
 			
 			consultarBaseDeDatos(sql); // Pasamos la sentencia al metodo
 			
