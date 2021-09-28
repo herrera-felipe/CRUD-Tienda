@@ -1,9 +1,6 @@
 package tienda.servicio;
 
 import java.util.Collection;
-
-import com.sun.javadoc.ThrowsTag;
-
 import tienda.entidades.Fabricante;
 import tienda.persistencia.FabricanteDAO;
 
@@ -63,6 +60,10 @@ public class FabricanteService {
 		}
 	}
 	
+	
+//	public void modificarNombreFabricante(Integer codigo, String nombre) {
+//		
+//	}
 	
 	/**
 	 * Recibe un nombre por parametro y valida si existe o no el resgistro en la BD.
