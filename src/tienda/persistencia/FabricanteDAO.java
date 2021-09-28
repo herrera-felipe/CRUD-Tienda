@@ -13,8 +13,8 @@ import tienda.entidades.Fabricante;
 public final class FabricanteDAO extends DAO {
 
 	/**
-	 * Recibe un fabricante por parametros, valida que este no sea null. Y si esta
-	 * todo Ok lo almacenara en la BD.
+	 * Recibe un fabricante por parametros de la llamada del service.
+	 * Valida que este no sea null. Y si esta todo Ok lo almacenara en la BD.
 	 * 
 	 * @param fabricante equivale a Obj de tipo Fabricante creado por usuario.
 	 */
@@ -42,7 +42,7 @@ public final class FabricanteDAO extends DAO {
 	}
 	
 	/**
-	 * Recibe el fabricante a modificar, valida que no sea null.
+	 * Recibe el fabricante a modificar del service, valida que no sea null.
 	 * Y si esta Ok realiza los cambios en la BD
 	 * @param fabricante
 	 * @throws Exception
@@ -72,7 +72,8 @@ public final class FabricanteDAO extends DAO {
 	}
 	
 	/**
-	 * Recibe el codigo del fabricante por parametro que se desea eliminar de la BD.
+	 * Recibe el codigo del fabricante por parametro del service
+	 * y elimina el registro de la Base de Datos
 	 * 
 	 * @param codigo equivalente al codigo del fabricante
 	 * @throws Exception
@@ -97,7 +98,7 @@ public final class FabricanteDAO extends DAO {
 
 	/**
 	 * Trae los datos del fabricante de la BD que coincidan con el codigo pasado
-	 * por parametro.
+	 * por parametro. Y los envia al Service
 	 * 
 	 * @param codigo equivale al codigo del fabricante a consultar
 	 * @return fabricante con los datos traidos de la BD
