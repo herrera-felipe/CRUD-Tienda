@@ -136,6 +136,48 @@ public final class FabricanteDAO extends DAO {
 		}
 		
 	}
+	
+	/**
+	 * Trae los datos del fabricante de la BD que coincidan con el nombre pasado
+	 * por parametro.
+	 * 
+	 * @param codigo equivale al codigo del fabricante a consultar
+	 * @return fabricante con los datos traidos de la BD
+	 * @throws Exception
+	 */
+	public Fabricante buscarFabricantePorNombre(String nombre) throws Exception {
+
+		try {
+			
+			// Hacemos la consulta SQL
+			String sql = "SELECT * FROM fabricante" 
+					+ " WHERE nombre LIKE '%" + nombre + "%';";
+			
+			consultarBaseDeDatos(sql); // Llamada al metodo heredado para hacer la consulta
+			
+			// Creamos un Objeto que recibira los datos traidos de la BD
+			Fabricante fabricante = null;
+			
+			// Bucle while para llenar los datos al obj usando la variable resultado de la clase padre DAO
+			while (resultado.next()) {
+				// si en resultado hay algun valor proximo continua la iteracion del bucle y asignamos los valores
+				
+				fabricante = new Fabricante(); // Se instancia el Objeto
+				fabricante.setCodigo(resultado.getInt(1)); // 1 equivale a la primera columna de la tabla
+				fabricante.setNombre(resultado.getString("nombre")); // tambien lo podemos asignar escribiendo directamente el nombre de la columna de la tabla
+			}
+			
+			desconectarBaseDeDatos();
+			
+			return fabricante;
+			
+		} catch (Exception e) {
+			// Si hay un error 1ro desconectamos la BD y luego lanzamos la excepcion
+			desconectarBaseDeDatos();
+			throw e;
+		}
+		
+	}
 
 	/**
 	 * Trae todos los datos de la tabla y los almacena en un ArrayList.
