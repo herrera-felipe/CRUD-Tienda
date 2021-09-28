@@ -47,7 +47,7 @@ public final class FabricanteDAO extends DAO {
 	 * @param fabricante
 	 * @throws Exception
 	 */
-	public void modificarFabricante(Fabricante fabricante) throws Exception {
+	public void modificarNombreFabricante(Fabricante fabricante) throws Exception {
 
 		try {
 			// Si el usuario es null lanzamos una excepcion
