@@ -1,9 +1,6 @@
 package tienda;
 
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import tienda.servicio.FabricanteService;
 
 /**
@@ -23,23 +20,45 @@ public class MainClass {
 		int codigo;
 		String nombre;
 		
+		// Creamos un nuevo Fabricante
 		try {
-			// Creamos un nuevo Fabricante
-//			System.out.println("Ingrese el codigo del Fabricante:");
-//			codigo = Integer.parseInt(sc.nextLine());
-//			
-//			System.out.println("Ingrese el nombre del Fabricante:");
-//			nombre = sc.next();
-//			
-//			// Prueba de Metodos
-//			fabricanteService.crearFabricante(codigo, nombre); // Llamada del metodo mediante el service
 			
-//			fabricanteService.eliminarFabricante(codigo);
+			System.out.println("Ingrese el codigo del Fabricante:");
+			codigo = Integer.parseInt(sc.nextLine());
+			
+			System.out.println("Ingrese el nombre del Fabricante:");
+			nombre = sc.next();
+			
+			fabricanteService.crearFabricante(codigo, nombre); // Llamada del metodo mediante el service
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+            System.out.println("Error del sistema por \n" + e.getMessage());
+		}
+		
+		// Eliminamos un fabricante
+		try {
+			
+			System.out.println("Ingrese el codigo del fabricante a eliminar:");
+			codigo = Integer.parseInt(sc.nextLine());
+			
+			fabricanteService.eliminarFabricante(codigo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+            System.out.println("Error del sistema por \n" + e.getMessage());
+		}
+		
+		// Listamos los fabricantes
+		try {
 			
 			fabricanteService.imprimirFabricantes();
+			
 		} catch (Exception e) {
-			Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, e);
+			e.printStackTrace();
+            System.out.println("Error del sistema por \n" + e.getMessage());
 		}
+		
 	}
 
 }
