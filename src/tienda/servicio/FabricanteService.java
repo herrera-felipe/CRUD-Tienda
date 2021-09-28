@@ -4,6 +4,7 @@ import tienda.entidades.Fabricante;
 import tienda.persistencia.FabricanteDAO;
 
 /**
+ * Controla la logica para manejar Fabricantes
  * 
  * @author Felipe Herrera
  *
