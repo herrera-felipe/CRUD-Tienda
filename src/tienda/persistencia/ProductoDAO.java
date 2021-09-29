@@ -48,19 +48,16 @@ public final class ProductoDAO extends DAO {
 	public void modificarProducto(Producto producto) throws Exception {
 
 		try {
-			// Validamos que el producto recibido no este en null
 			if (producto == null) {
 				throw new Exception("Debe indicar un producto a modificar.");
 			}
 
-			// Sentencia SQL para modificar el producto
 			String sql = "UPDATE producto SET" 
-					+ "nombre = '" + producto.getNombre() + "' " 
-					+ "precio = '" + producto.getPrecio() + "' " 
-					+ "codigo_fabricante = '" + producto.getCodigoFabricante() + "' "
-					+ "WHERE codigo = '" + producto.getCodigo() + "';" ;
+					+ " nombre = '" + producto.getNombre() 
+					+ "', precio = " + producto.getPrecio() 
+					+ ", codigo_fabricante = " + producto.getCodigoFabricante()
+					+ " WHERE codigo = " + producto.getCodigo() + ";" ;
 			
-			// Llamada al metodo heredado de la Clase DAO para pasar la sentencia
 			insertarModificarEliminar(sql);
 			
 		} catch (Exception e) {
@@ -103,6 +100,50 @@ public final class ProductoDAO extends DAO {
 			// Hacemos la consulta SQL
 			String sql = "SELECT * FROM producto"
 					+ "WHERE nombre LIKE = '%" + nombre + "%';";
+			
+			consultarBaseDeDatos(sql); // Pasamos la sentencia al metodo
+			
+			// Creamos un Obj que recibira los datos de la consulta
+			Producto producto = null; 
+			
+			// Rellenamos el objeto con los datos traidos por el ResultSet
+			while (resultado.next()) {
+				// si en resultado hay algun valor proximo continua la iteracion del bucle y asignamos los valores
+				
+				producto = new Producto(); // Instanciamos el objeto
+				
+				// Asignamos los valores
+				producto.setCodigo(resultado.getInt("codigo"));
+				producto.setNombre(resultado.getString("nombre"));
+				producto.setPrecio(resultado.getInt("precio"));
+				producto.setCodigoFabricante(resultado.getInt("codigo_fabricante"));
+			}
+			
+			desconectarBaseDeDatos(); // desconectamos al terminar la consulta
+			
+			return producto;
+			
+		} catch (Exception e) {
+			// si hay error desconectamos de la BD y lanzamos la excepcion
+			desconectarBaseDeDatos();
+			throw e;
+		}
+	}
+	
+	/**
+	 * Recibe el codigo de un producto a buscar en la Base de Datos, 
+	 * y construye un objeto con los datos traidos de la BD.
+	 * 
+	 * @param codigo que equivale al codigo del producto a buscar
+	 * @return Un Obj producto con todos los datos traidos de la BD.
+	 * @throws Exception
+	 */
+	public Producto buscarProductoPorCodigo(Integer codigo) throws Exception {
+		
+		try {
+			// Hacemos la consulta SQL
+			String sql = "SELECT codigo, nombre, precio, codigo_fabricante FROM producto"
+					+ " WHERE codigo = " + codigo + ";";
 			
 			consultarBaseDeDatos(sql); // Pasamos la sentencia al metodo
 			
