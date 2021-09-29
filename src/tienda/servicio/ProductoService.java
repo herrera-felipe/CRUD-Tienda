@@ -1,6 +1,6 @@
 package tienda.servicio;
 
-import tienda.entidades.Fabricante;
+import java.util.Collection;
 import tienda.entidades.Producto;
 import tienda.persistencia.ProductoDAO;
 
@@ -89,6 +89,101 @@ public class ProductoService {
 			Producto producto = dao.buscarProductoPorNombre(nombre);
 			
 			return producto;
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * llama al metodo listarProductos del DAO y crea la lista con los registros de la tabla.
+	 * Dicha lista servira para imprimir o mostrar solo los nombres de los  registros por pantalla.
+	 * 
+	 * @return productos equivale a una lista con todos los registros de la tabla
+	 * @throws Exception
+	 */
+	public Collection<Producto> listarProductos() throws Exception {
+		
+		try {
+			
+			Collection<Producto> productos = dao.listarProductos();
+			
+			return productos;
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * Llama al metodo listarProductos del service, para mostrar solo los nombres de Producto
+	 */
+	public void imprimirNombreProductos() throws Exception {
+		
+		try {
+			
+			// Listamos los fabricantes
+			Collection<Producto> nombreProductos = listarProductos();
+			
+			// Imprimimos o mostramos los fabricantes
+			if (nombreProductos.isEmpty()) {
+				throw new Exception("No existen productos para imprimir.");
+			} else {
+				// iteramos en un for para mostrar los nombres de los productos
+				for (Producto producto : nombreProductos) {
+					System.out.println(producto.getNombre());
+				}
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * Imprime todos los datos de la tabla producto
+	 */
+	public void imprimirProductos() throws Exception {
+		
+		try {
+			
+			// Listamos los fabricantes
+			Collection<Producto> nombreProductos = listarProductos();
+			
+			// Imprimimos o mostramos los fabricantes
+			if (nombreProductos.isEmpty()) {
+				throw new Exception("No existen productos para imprimir.");
+			} else {
+				// iteramos en un for para mostrar los nombres de los productos
+				for (Producto producto : nombreProductos) {
+					System.out.println(producto);
+				}
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * Imprime todos los datos de la tabla producto
+	 */
+	public void imprimirNombrePrecioProductos() throws Exception {
+		
+		try {
+			
+			// Listamos los fabricantes
+			Collection<Producto> nombreProductos = listarProductos();
+			
+			// Imprimimos o mostramos los fabricantes
+			if (nombreProductos.isEmpty()) {
+				throw new Exception("No existen productos para imprimir.");
+			} else {
+				// iteramos en un for para mostrar los nombres de los productos
+				for (Producto producto : nombreProductos) {
+					System.out.println(producto.getNombre() + " = $ " + producto.getPrecio());
+				}
+			}
 			
 		} catch (Exception e) {
 			throw e;
