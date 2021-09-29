@@ -96,6 +96,32 @@ public class ProductoService {
 	}
 	
 	/**
+	 * Recibe un codigo por parametro y valida si existe o no el resgistro en la BD.
+	 * Llamando al metodo buscarProductoPorCodigo de la clase ProductoDAO
+	 * 
+	 * @param codigo
+	 * @return Obj Producto si existe en la BD
+	 * @throws Exception
+	 */
+	public Producto buscarProductoPorCodigo(Integer codigo) throws Exception {
+		
+		try {
+			// Validamos
+			if (codigo == null) {
+				throw new Exception("Debe indicar el codigo del Producto.");
+			}
+			
+			// Usamos el dao para llamar al metodo y traer el resultado.
+			Producto producto = dao.buscarProductoPorCodigo(codigo);
+			
+			return producto;
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
 	 * llama al metodo listarProductos del DAO y crea la lista con los registros de la tabla.
 	 * Dicha lista servira para imprimir o mostrar solo los nombres de los  registros por pantalla.
 	 * 
@@ -187,6 +213,45 @@ public class ProductoService {
 			
 		} catch (Exception e) {
 			throw e;
+		}
+	}
+	
+	
+	public void modificarProducto(Integer codigo, String nombre, Double precio, Integer codigo_fabricante) {
+		try {
+			// Validamos
+			if (codigo == null) {
+				throw new Exception("Debe indicar un codigo de Producto");
+			}
+			
+			if (nombre == null || nombre.trim().isEmpty()) {
+				throw new Exception("Debe indicar un nombre para el Producto.");
+			}
+			
+			if (precio == null || precio <= 0) {
+				throw new Exception("Debe indicar un precio valido para el producto.");
+			}
+			
+			if (codigo_fabricante == null || codigo_fabricante <= 0) {
+				throw new Exception("Debe indicar un codigo de fabricante valido.");
+			}
+			
+			// Buscamos
+			Producto producto = buscarProductoPorCodigo(codigo);
+			
+			// Validamos el codigo
+			if (producto.getCodigo() != codigo) {
+				throw new Exception("El codigo ingresado no esta registrado en la Base de Datos.");
+			}
+			
+			// Modificamos
+			producto.setNombre(nombre);
+			producto.setPrecio(precio);
+			producto.setCodigoFabricante(codigo_fabricante);
+			
+			dao.modificarProducto(producto);
+			
+		} catch (Exception e) {
 		}
 	}
 }
