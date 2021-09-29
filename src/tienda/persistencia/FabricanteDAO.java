@@ -110,7 +110,7 @@ public final class FabricanteDAO extends DAO {
 			
 			// Hacemos la consulta SQL
 			String sql = "SELECT * FROM fabricante" 
-					+ " WHERE codigo = '" + codigo + "';";
+					+ " WHERE codigo = " + codigo + ";";
 			
 			consultarBaseDeDatos(sql); // Llamada al metodo heredado para hacer la consulta
 			
