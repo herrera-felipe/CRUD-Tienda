@@ -216,6 +216,45 @@ public final class ProductoDAO extends DAO {
 		}
 	}
 	
+	/**
+	 * Hace la consulta a la Bd para traer solo los productos que coincidan con el parametro nombre
+	 * 
+	 * @param nombre equivale a la palabra para filtrar la busqueda
+	 * @return Lista de objetos con los resultados de la consulta
+	 * @throws Exception
+	 */
+	public Collection<Producto> listarPorNombre(String nombre) throws Exception {
+		try {
+			// Consulta Sql
+			String sql = "SELECT nombre, precio FROM producto " 
+					+ " WHERE nombre LIKE '%" + nombre + "%' ORDER BY precio ASC;";
+			
+			consultarBaseDeDatos(sql); // Realizamos la consulta
+			
+			Producto producto = null; //Obj. que contendra los datos traidos para construir la lista
+			
+			Collection<Producto> listaProductos = new ArrayList<Producto>();
+			
+			// Iteramos el bucle para obtener los datos y rellenar la lista
+			while (resultado.next()) {
+				producto = new Producto();
+				producto.setNombre(resultado.getString("nombre"));
+				producto.setPrecio(resultado.getDouble("precio"));
+
+				// Agregamos el obj. a la lista
+				listaProductos.add(producto);
+			}
+			
+			desconectarBaseDeDatos(); // Terminada la consulta, desconectamos
+			
+			return listaProductos;
+			
+		} catch (Exception e) {
+			e.printStackTrace(); // Imprime la pila de excepcion
+			desconectarBaseDeDatos(); // desconectamos de bd
+			throw new Exception("Error del Sistema."); // Lanzamos la Excepcion
+		}
+	}
 	
 }
 
