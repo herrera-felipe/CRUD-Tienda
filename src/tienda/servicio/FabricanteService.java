@@ -61,10 +61,6 @@ public class FabricanteService {
 	}
 	
 	
-//	public void modificarNombreFabricante(Integer codigo, String nombre) {
-//		
-//	}
-	
 	/**
 	 * Recibe un nombre por parametro y valida si existe o no el resgistro en la BD.
 	 * Llamando al metodo buscarfabricantePorNombre de la clase FabricanteDAO
