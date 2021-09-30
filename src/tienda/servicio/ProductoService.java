@@ -142,6 +142,53 @@ public class ProductoService {
 	}
 	
 	/**
+	 * Llama al metodo listarPorNombre de la clase DAO y le pasa el parametro nombre
+	 * 
+	 * @param nombre para filtrar la busqueda
+	 * @return
+	 * @throws Exception
+	 */
+	public Collection<Producto> listarPorNombre(String nombre) throws Exception {
+		
+		try {
+			
+			Collection<Producto> productos = dao.listarPorNombre(nombre);
+			
+			return productos;
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param nombre
+	 * @throws Exception
+	 */
+	public void imprimirPorNombre(String nombre) throws Exception {
+
+		try {
+
+			// Listamos los fabricantes
+			Collection<Producto> nombreProductos = listarPorNombre(nombre);
+
+			// Imprimimos o mostramos los fabricantes
+			if (nombreProductos.isEmpty()) {
+				throw new Exception("No existen productos para imprimir.");
+			} else {
+				// iteramos en un for para mostrar los nombres de los productos
+				for (Producto producto : nombreProductos) {
+					System.out.println(producto.getNombre() + " = $" + producto.getPrecio());
+				}
+			}
+
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
 	 * Llama al metodo listarProductos del service, para mostrar solo los nombres de Producto
 	 */
 	public void imprimirNombreProductos() throws Exception {
@@ -216,6 +263,39 @@ public class ProductoService {
 		}
 	}
 	
+	/**
+	 * Imprime los productos filtrando por rango de precio
+	 * 
+	 * @param num1 equivale al rango de precio desde
+	 * @param num2 equivale al rango de precio hasta
+	 */
+	public void imprimirPorRangoPrecio(Integer num1, Integer num2) throws Exception {
+		
+		try {
+			// Validamos
+			if (num1 == null || num2 == null || num1 <= 0 || num2 <= 0) {
+				throw new Exception("Debe indicar un rango de precio valido.");
+			}
+			
+			// Listamos los fabricantes
+			Collection<Producto> nombreProductos = listarProductos();
+			
+			// Imprimimos o mostramos los fabricantes
+			if (nombreProductos.isEmpty()) {
+				throw new Exception("No existen productos para imprimir.");
+			} else {
+				// iteramos en un for para mostrar los nombres de los productos
+				for (Producto producto : nombreProductos) {
+					if (producto.getPrecio() >= num1 && producto.getPrecio() <= num2) {
+						System.out.println("Nombre: " + producto.getNombre() + " = $" + producto.getPrecio());
+					}
+				}
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	
 	public void modificarProducto(Integer codigo, String nombre, Double precio, Integer codigo_fabricante) {
 		try {
